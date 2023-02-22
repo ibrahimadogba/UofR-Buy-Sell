@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Custom StyleSheet -->
+    <script src="https://kit.fontawesome.com/a241594fe2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+
+    <title>MyAccount</title>
+    <link rel ="stylesheet" type="text/css" href="stylesheet.css">
+    <script type="text/javascript" src="script.js"> </script>
+</head>
+
+<body>
+    <!--Header.-->
+    <section id="header">
+        <a href="#"><img src= "Pictures/homepage/uofr.jpeg" class="logo" alt="" width="80" 
+            height="80"></a>
+        <div>
+                <ul id="navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="books.html">Shop</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a class="active" href="myaccount.html">My account</a></li>
+                    <li id="lg-bag"><a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+                    <a href="#" id ="close"><i class="fa-sharp fa-solid fa-xmark"></i></a>
+                </ul>
+        </div>
+
+        <div id="mobile">
+            <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <section id="myaccount">
+        <h1>My Account</h1>
+
+	<div class="user-details">
+		<img src="https://source.unsplash.com/random/100x100" alt="User Display Picture">
+		<div>
+			<p>Name: John Doe</p>
+			<p>Email: john.doe@example.com</p>
+			<p>Address: 123 Main St, Anytown USA</p>
+		</div>
+	</div>
+
+    <div class="favorites-section">
+		<h2>Favorite Books</h2>
+		<ul class="favorites-list">
+			<li class="favorites-item">
+				<img src="Pictures/books/overthinking1.jpg" height="300" width="250" alt="Book Cover">
+				<h3>Stop Overthing</h3>
+			</li>
+			<li class="favorites-item">
+				<img src="Pictures/books/pamela.jpg" height="300" width="250" alt="Book Cover">
+				<h3>Friends, Lovers</h3>
+			</li>
+			<li class="favorites-item">
+				<img src="Pictures/books/Harry.jpg" height="300" width="250" alt="Book Cover">
+				<h3>The Light We Carry</h3>
+			</li>
+			<li class="favorites-item">
+				<img src="Pictures/books/mental toughness.jpg" height="300" width="250" alt="Book Cover">
+				<h3>The Menatal Toughness</h3>
+			</li>
+        </ul>
+    </div>
+                
+	<div class="post-form">
+		<h2>Add a Post</h2>
+		<form>
+			<label for="post-title">Title:</label>
+			<input type="text" id="post-title" name="post-title"><br>
+
+			<label for="book-author">Author:</label>
+			<input type="text" id="book-author" name="book-author"><br>
+
+			<label for="book-isbn">ISBN:</label>
+			<input type="text" id="book-isbn" name="book-isbn"><br>
+
+			<label for="book-class">Class Number:</label>
+			<input type="text" id="book-class" name="book-class"><br>
+
+			<label for="book-image">Image(s):</label>
+			<input type="file" id="book-image" name="book-image"><br>
+
+			<label for="post-content">Content:</label>
+			<textarea id="post-content" name="post-content"></textarea><br>
+			<input type="submit" value="Add Post">
+		</form>
+        </div>
+    </section>
+
+    <!--Footer-->
+    <footer class="section-p1">
+      <div class="colum">
+      <img class="logo" src="Pictures/homepage/uofr.jpeg" alt="" width="100" height="80">
+      <h4><strong>Contact</strong></h4>
+          <p><strong>Address:</strong> 31-65 Munroe Pl, Regina, Sk, S4S 6A7</p>
+          <p><strong>Phone:</strong>306-342-2345</p>
+          <p><strong>Hours:</strong>10:00-18:00, Mon-Sat</p>
+            <div class="follow">
+              <h4>Follow Us</h4>
+                <div class="icon">
+                  <i class="fab fa-facebook-f"></i>
+                  <i class="fab fa-twitter"></i>
+                  <i class="fab fa-instagram"></i>
+                  <i class="fab fa-pinterest-p"></i>
+                  <i class="fab fa-youtube "></i>
+                </div>
+            </div>
+          </div>
+
+
+          <div class="colum">
+            <h4><strong>About</strong></h4>
+            <a href="#"> About Us</a>
+            <a href="#"> Delivery information</a>
+            <a href="#"> Privacy Policy</a>
+            <a href="#"> Contact Us</a>
+          </div> 
+
+        <div class="colum">
+          <h4><Strong>My account</Strong></h4>
+          <a href="http://www.webdev.cs.uregina.ca/~jls273/cs476/login.html"> Login</a>
+          <a href="http://www.webdev.cs.uregina.ca/~jls273/cs476/signup.html"> Sign-up</a>
+          <a href="#"> Notifications</a>
+          <a href=""> Contact Us</a>
+        </div> 
+
+        <div class="colum install">
+          <h4><strong>Install App</strong></h4>
+          <div class="roww">
+              <img src="Pictures/homepage/app.png" alt="" width="150" 
+              height="65" >
+              <img src="Pictures/homepage/play.png" alt="" width="150" 
+              height="65">
+          </div>
+          <p> Secure paymeny Getway</p>
+          <img src="Pictures/homepage/Secure paymeny Getway.jpeg" alt="" width="250" 
+          height="80" >
+        </div>
+      <div class="copyright">
+        <p>@ 2023, Ibrahim etc - HTML CSS Ecommerce Template</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+
+</body>
+
+
+</html>
