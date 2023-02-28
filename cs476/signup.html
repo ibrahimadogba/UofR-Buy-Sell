@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<link rel="stylesheet" href="mystyle.css">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Signup</title>
+        <script type="text/javascript" src="validate_signup.js"></script>
+        <style>
+            .err_msg{ color:red;}
+         </style>
+    </head>
+    <body>
+        <header>
+            <h1>U of R Buy & Sell</h1>
+        </header>
+        <div class="container" id="container-other">
+            <div class="item2">
+                <h1>Please create an account</h1>
+
+                <form class="login" id="Signup" method="post">
+                    <div class="input">
+                        <p><label id="email_msg" class="err_msg"></label></p>
+                        <input id="box" inputmode="email" type="text" name="email">
+                        <div class="username-label" data-dynamic-label-for="username">Email address</div>
+                    </div>
+                    <div class="input">
+                        <p><label id="uname_msg" class="err_msg"></label></p>
+                        <input id="box2" inputmode="username" type="text" name="username">
+                        <div class="username-label" data-dynamic-label-for="username">Username</div>
+                    </div>
+                    <div class="input">
+                        <input id="box3" inputmode="password" type="text" name="password">
+                        <div class="password-label" data-dynamic-label-for="username">Password</div>
+                    </div>
+                    <div class="input">
+                        <input id="box4" inputmode="password" type="text" name="confirmpassword">
+                        <div class="password-label" data-dynamic-label-for="username">Confirm password</div>
+                    </div>
+                    <div class="input">
+                        <p><label id="photo_msg" class="err_msg"></label></p>
+                        <p>Upload a profile picture: <input type="file"/></p>
+                    </div>
+                    <div class="input">
+                        <input type="submit" class="button-continue" id="box5">
+                    </div>
+                </form>
+                <script type = "text/javascript"  src = "validate_signup_r.js" ></script>
+            </div>
+        </div>
+    </body>
+</html>
