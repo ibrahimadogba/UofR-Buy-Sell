@@ -1,7 +1,7 @@
 <?php
-$validate = true;
-$error = "";
-session_start();
+ $validate = true;
+ $error = '';
+  session_start();
         if (!isset($_SESSION["email"]))
         {
             header("Location: login.php");
@@ -29,107 +29,87 @@ session_start();
                       $selldescription = trim($_POST["post-content"]);
                       $price = trim($_POST["book-price"]);
                       $currenttime=time();
+                      $error = "";
+                    
                       try {
-
-                        if($selltitle == null || $selltitle == "" || $selltitle == false) {
-                            $validate = false;
-                            $error .= "Book Title Is empty.\n<br />";
-                        }
-                        
-                        
-                        
-                        // Check if an image file was uploaded
-                        if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
+                       
+                        if (empty($selltitle)) {
+                          $validate = false;
+                          $error .= "Book Title Is empty.\n<br />";
+                      }
+                  
+                      // Check if an image file was uploaded
+                      if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
                           $target_dir = "uploads/";
                           $target_file = $target_dir . basename($_FILES["image"]["name"]);
-                          $uploadOk = 1;
-                        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                      $check = getimagesize($_FILES["image"]["tmp_name"]);
-                    if($check !== false) {
-                        $error .= "File is an image - " . $check["mime"] . ".";
-                        $uploadOk = 1;
-                      } else {
-                        $error .= "File is not an image.";
-                        $uploadOk = 0;
-                      }
-                      if ($_FILES["image"]["size"] > 500000) {
-                        $error .= "Sorry, your file is too large.";
-                        $uploadOk = 0;
-                      }
-                      
-                      // Allow certain file formats
-                      if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-                      && $imageFileType != "gif" ) {
-                        $error .= "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-                        $uploadOk = 0;
-                      }
-                      
-                      // Check if $uploadOk is set to 0 by an error
-                        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                        } else {
-                          $error .= "Sorry, there was an error uploading your file.";
-                        }
-                      }
-                    
-                   
-                                         
-                       if($validate == true) {
-                            $created_dt=date("Y-m-d H:i:s",$currenttime);
-                            $q2 = "INSERT INTO sellcreation (selltitle, sellauthor, sellisbn, sellimage, selldescription, created_dt, price, userId) 
-                            VALUES ('$selltitle', '$sellauthor', '$sellisbn', '$target_file', '$selldescription', '$created_dt', '$price', '$userId')";
-
-                
-                             
-                            $r2 = $db->exec($q2);
-                            
-                            
-
-                            if ($r2 != false) {
-                               header("Location: myaccount.php");
-                            
-                                $r2 = null;
-                                $db = null;
-                                exit();
-                
-                            } else {
-                                $r2 = null;
-                                $validate = false;
-                                $error .= "Trouble adding product to database!\n<br />";
-                            }         
-                        }
-                      
-                        if ($validate == false) {
-                            $error .= "Selling Creation failed.";
-                        }
-                     
-                        
-                        $db = null;
-                         } catch (PDOException $e) {
-                                 die("PDO Error >> " . $e->getMessage() . "\n<br />");            
-                             }       
-                            }
+                          $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                          $check = getimagesize($_FILES["image"]["tmp_name"]);
+                  
+                          if ($check === false) {
+                              $error .= "File is not an image.";
+                              $validate = false;
                           }
-                 
-              $db = new PDO("mysql:host=localhost; dbname=ioa388", "ioa388", "Dante112");                                             
-              $q =  "SELECT s.sellId, s.selltitle, s.sellimage
-              FROM favorites f
-              INNER JOIN sellcreation s ON f.sellId = s.sellId
-              WHERE f.userId = (SELECT userId FROM Users WHERE email = '$email')";
-                $r=$db->query($q, PDO::FETCH_ASSOC);
-                $row = $r->fetchAll();
-                /*if (!empty($row)) {
-                  $selltitle = $row["selltitle"];
-                  $sellimage = $row["sellimage"];
-                  $sellId = $row["sellId"];
-              } /*else {
-                $sellimage = null;
-              }*/
+                  
+                          if ($_FILES["image"]["size"] > 500000) {
+                              $error .= "Sorry, your file is too large.";
+                              $validate = false;
+                          }
+                  
+                          // Allow certain file formats
+                          if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+                              $error .= "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                              $validate = false;
+                          }
+                  
+                          if ($validate) {
+                              if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                              
+                              }
+                              else{
+                                $error .= "Sorry, there was an error uploading your file.";
+                                  $validate = false;
+                              }
+                          }
+                      }
+                  
+                      if ($validate) {
+                          $created_dt = date("Y-m-d H:i:s", $currenttime);
+                          $q2 = "INSERT INTO sellcreation (selltitle, sellauthor, sellisbn, price, sellclassnum, selldescription, sellimage, created_dt, userId) 
+                                  VALUES ('$selltitle', '$sellauthor', '$sellisbn', '$price', '$sellclassnum','$selldescription', '$target_file', '$created_dt', '$userId')";
+                  
+                          $r2 = $db->exec($q2);
+                  
+                          if ($r2 !== false) {
+                              header("Location: myaccount.php");
+                              exit();
+                          } else {
+                              $error .= "Trouble adding product to database";
+                          }
+                      } else {
+                          $error .= "Selling Creation failed.";
+                                    $validate = false;
 
-                $q3 = "SELECT sellId, selltitle, sellimage, selldescription, created_dt, price 
-                FROM sellcreation 
-                WHERE userId = '$userId'";
-                $r3 = $db->query($q3, PDO::FETCH_ASSOC);
-                $rows = $r3->fetchAll();
+                      }
+                  
+                      $db = null;
+                  } catch (PDOException $e) {
+                      die("PDO Error >> " . $e->getMessage() . "\n<br />");
+                  }      
+                            
+                }
+              }    
+                          $db = new PDO("mysql:host=localhost; dbname=ioa388", "ioa388", "Dante112");                                             
+                          $q =  "SELECT s.sellId, s.selltitle, s.sellimage
+                          FROM favorites f
+                          INNER JOIN sellcreation s ON f.sellId = s.sellId
+                          WHERE f.userId = (SELECT userId FROM Users WHERE email = '$email')";
+                            $r=$db->query($q, PDO::FETCH_ASSOC);
+                            $row = $r->fetchAll();
+
+
+                         
+      
+                 
             
   ?>      
                       
@@ -145,12 +125,26 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
 
+
     <title>MyAccount</title>
     <link rel ="stylesheet" type="text/css" href="stylesheet.css">
     <script type="text/javascript" src="sellcreation.js"></script>
     <script type="text/javascript" src="script.js"> </script>
     <style>
             .err_msg{ color:red;}
+            .nor {
+    background-color: #088178;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8
+            }
          </style>
 </head>
 
@@ -186,15 +180,17 @@ session_start();
       <p>username: <?=$username?></p>
       <p>Email: <?=$email?></p>
       <p><strong>Please Buy and Sell Responsiblely.</strong></p>
+
     </div>
   </div>
+  <button class="nor" onclick="window.location.href='posted.php';">View Your posted books</button>
 
   <div class="favorites-section">
     <h2>Favorite Books</h2>
     <?php
-
+  
     // code to retrieve favorites goes here
-    if (count($row) > 0) {
+   if (count($row) > 0) {
         echo '<ul class="favorites-list">';
         foreach ($row as $r) {
             echo '<li class="favorites-item">';
@@ -207,30 +203,6 @@ session_start();
         echo "<p>You haven't added any favorites yet.</p>";
     }
     ?>
-</div>
-<div class="favorites-section">
-    <h2>Posted Books</h2>
-    <p>P.S: You can click on post to delect them. 
-    <?php
-
-    // code to retrieve favorites goes here
-    if (count($rows) > 0) {
-        echo '<ul class="favorites-list">';
-        foreach ($rows as $row) {
-            echo '<li class="favorites-item">';
-            echo '<img src="' . $row['sellimage'] . '" height="300" width="250" onclick="window.location.href=\'deletepost.php?Id=' . $row['sellId'] . '\'"/>';
-            echo '<h3>' . $row['selltitle'] . '</h3>';
-            echo' <form method="POST">';
-            echo '</li>';
-        }
-        echo '</ul>';
-    } else {
-        echo "<p>You haven't added any posts yet.</p>";
-    }
-    ?>
-
-    
-</div>
                 
   <div class="post-form">
     <h2>Add a Post</h2>
